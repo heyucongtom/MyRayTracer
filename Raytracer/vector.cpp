@@ -11,6 +11,8 @@
 #include <iostream>
 #include <math.h>
 
+template <int N, typename T> class my_vec;
+
 template <typename T>
 struct vec_traits {
 	typedef T element_type;
@@ -76,17 +78,17 @@ public:
 		for (int i = 0; i < N; ++i) {
 			d[i] -= v[i];
 		}
-		return *this
+		return *this;
 	}
 
-	my_vec<N, T>& operator *=(typename const vec_traits<T>::element_type s) {
+	my_vec<N, T>& operator *=(typename vec_traits<T>::element_type s) {
 		for (int i = 0; i < N; ++i) {
 			d[i] *= s;
 		}
 		return *this;
 	}
 
-	my_vec<N, T>& operator /=(typename const vec_traits<T>::element_type s) {
+	my_vec<N, T>& operator /=(typename vec_traits<T>::element_type s) {
 		for (int i = 0; i < N; ++i) {
 			d[i] /= s;
 		}
@@ -115,7 +117,7 @@ public:
 	operator*(typename vec_traits<T>::element_type lhs, const my_vec<N, T> &rhs) {
 		T tmp[N];
 		for (int i = 0; i < N; ++i) {
-			tem[i] = lhs * rhs[i];
+			tmp[i] = lhs * rhs[i];
 		}
 		return my_vec<N, T>(tmp);
 	}
@@ -130,13 +132,7 @@ public:
 	}
 private:
 	T d[N];
-
-
-	/* Specialization for vec3 */
-	// friend my_vec<3, T>
-	// operator-(const my_vec<3, T> &lhs, const my_vec<3, T> &rhs) {
-	// 	return my_vec<3, T>(lhs.d[0] - rhs.d[0]
-	// 						lhs.d[1] - rhs.d[1]
-	// 						lhs.d[2] - rhs.d[2]);
-	// }
 };
+
+#endif
+
