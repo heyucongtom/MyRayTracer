@@ -19,16 +19,31 @@ struct vec_traits {
 };
 
 template <int N, typename T>
-struct vec_traits<my_vec<N, T>> {
+struct vec_traits<my_vec<N, T> > {
 	typedef typename vec_traits<T>::element_type element_type;
 };
 
-/* Declaration, signatures */
 template <int N, typename T>
-T my_dot(const my_vec<N, T>&, const my_vec<N, T>&);
+T my_dot(const my_vec<N, T> &lhs, const my_vec<N, T> &rhs) {
+	T res = lhs[0] * rhs[0];
+	for (int i = 1; i < N; ++i) {
+		res += lhs[i] * rhs[i];
+	}
+	return res;
+}
 
 template <typename T>
 my_vec<3, T> my_cross(const my_vec<3, T>&, const my_vec<3, T>&);
+
+
+template <int N, typename T>
+my_vec<N, T> my_mult_e(const my_vec<N, T> &lhs, const my_vec<N, T> &rhs) {
+	T tmp[N];
+	for (int i = 0; i < N; ++i) {
+		tmp[i] = lhs[i] * rhs[i];
+	}
+	return my_vec<N, T>(tmp);
+}
 
 template <int N, typename T>
 class my_vec {
@@ -74,21 +89,21 @@ public:
 			return *this;
 		}
 
-	my_vec<N, T>& operator -=(const my_vec<N, T> &v) {
+	my_vec<N, T>& operator-=(const my_vec<N, T> &v) {
 		for (int i = 0; i < N; ++i) {
 			d[i] -= v[i];
 		}
 		return *this;
 	}
 
-	my_vec<N, T>& operator *=(typename vec_traits<T>::element_type s) {
+	my_vec<N, T>& operator*=(typename vec_traits<T>::element_type s) {
 		for (int i = 0; i < N; ++i) {
 			d[i] *= s;
 		}
 		return *this;
 	}
 
-	my_vec<N, T>& operator /=(typename vec_traits<T>::element_type s) {
+	my_vec<N, T>& operator/=(typename vec_traits<T>::element_type s) {
 		for (int i = 0; i < N; ++i) {
 			d[i] /= s;
 		}
