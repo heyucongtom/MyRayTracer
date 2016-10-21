@@ -82,6 +82,18 @@ public:
 		return res;
 	}
 
+	/* Only usable for vector. */
+	/* Further modification required. */
+	my_vec<N, T> vec_normal() {
+		T tmp[N];
+		T sum = 0;
+		for (int i = 0; i < N; ++i) { sum += ( d[i] * d[i] ); }
+		for (int i = 0; i < N; ++i) {
+			tmp[i] = d[i] / sqrt(sum);
+		}
+		return my_vec(tmp);
+	}
+
 	my_vec<N, T>& operator+=(const my_vec<N, T> &v) {
 		for (int i = 0; i < N; ++i) {
 				d[i] += v[i];
