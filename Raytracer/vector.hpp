@@ -68,6 +68,14 @@ public:
 		return (typename vec_traits<T>::element_type*) d;
 	}
 
+	void report() {
+		std::cout << "[";
+		for (int i = 0; i < N-1; ++i) {
+			std::cout << d[i] << " ";
+		}
+		std::cout << d[N-1] << "]" << std::endl;
+	}
+
 
 	/* Operator overloading for vectors */
 	friend bool

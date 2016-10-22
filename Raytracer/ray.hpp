@@ -1,3 +1,6 @@
+#ifndef _RAY_H_
+#define _RAY_H_
+
 #include "vector.hpp"
 #include "color.hpp"
 
@@ -16,3 +19,5 @@ public:
 private:
 	int type;
 };
+
+#endif
