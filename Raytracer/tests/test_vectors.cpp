@@ -2,6 +2,7 @@
 #include <boost/test/included/unit_test.hpp>
 
 #include "../vector.hpp"
+#include "../shapes.hpp"
 
 BOOST_AUTO_TEST_CASE(first_test) {
 	int i = 1;
@@ -25,4 +26,10 @@ BOOST_AUTO_TEST_CASE(vector_norm) {
 	my_vec<3, float> res = vec1.vec_normal();
 	BOOST_TEST(abs(res[0] - 0.6) < 0.00001);
 	BOOST_TEST(abs(res[1] - 0.8) < 0.00001);
+}
+
+BOOST_AUTO_TEST_CASE(shape_test) {
+	Sphere s;
+	BOOST_TEST(s.spu == 0);
+	BOOST_TEST(s.radius == 0);
 }
