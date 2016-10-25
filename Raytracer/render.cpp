@@ -2,6 +2,29 @@
 #include "shapes.hpp"
 #include <vector>
 #include "task.hpp"
+#include <fstream>
+
+const int ARGS_NUM = 1024;
+const int ARGS_SIZE = 64;
+
+Task parse_obj_file(std::string filename) {
+    std::ifstream file;
+    file.open(filename);
+
+    std::string word;
+    int argc = 0;
+    /* Using stack would be fine here. */
+    char **argv = (char **) malloc (ARGS_NUM * sizeof(char));
+    while (file >> word) {
+        argv[argc] = (char*) malloc ((word.size() + 1) * sizeof(char));
+        strncpy(argv[argc], word.c_str(), word.size());
+        ++argc;  
+    }
+    Task t;
+    parseFloatCmd(argv, argc, t);
+    t.report();
+    return t;
+}
 
 std::vector<float> render_sphere() {
 	Task t;
@@ -10,23 +33,7 @@ std::vector<float> render_sphere() {
 	return std::vector<float>(0);
 }
 
-int main(int argc, char *argv[]) {
-	Task t;
-	int i = 0;
-	while (i < argc) {
-		printf("%s\n", argv[i]);
-    	if (strcmp(argv[i], "sph") == 0) {
-    		t.shape = std::make_shared<Sphere>();
-    		std::shared_ptr<Sphere> p = std::dynamic_pointer_cast<Sphere>(t.shape);
-    		(p->center)[0] = atof(argv[i+1]);
-    		(p->center)[1] = atof(argv[i+2]);
-    		(p->center)[2] = atof(argv[i+3]);
-    		p->radius = atof(argv[i+4]);
-    	}
-    	++i;
-    }
-    std::shared_ptr<Sphere> p = std::dynamic_pointer_cast<Sphere>(t.shape);
-    std::cout << p->radius << std::endl;
-    p->center.report();
-
+int main() {
+    std::string obj_file_name = "./tests/obj_test_1";
+    Task t(parse_obj_file(obj_file_name));
 }

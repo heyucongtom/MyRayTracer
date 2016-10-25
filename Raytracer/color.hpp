@@ -18,6 +18,10 @@ public:
 	my_color(const my_vec<3, float> &rhs) {
 		for (int i = 0; i < 3; ++i) { d[i] = rhs[i]; }
 	}
+	
+	my_color(const my_color &rhs) {
+		for (int i = 0; i < 3; ++i) { d[i] = rhs.d[i]; }
+	}
 
 	float getR() { return d[0]; }
 	float getG() { return d[1]; }
@@ -39,9 +43,9 @@ public:
 		return my_color(tmp);
 	}
 
+	void report() { d.report(); }
+
 	float& operator[](int i) { return d[i]; }
-
-
 
 private:
 	my_vec<3, float> d;
